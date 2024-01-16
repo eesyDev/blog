@@ -1,0 +1,40 @@
+.title {
+    input {
+        font-size: 40px;
+        font-weight: 700;
+    }
+    div {
+        &:before, &::after {
+            display: none;
+        }
+    }
+
+}
+.image {
+    width: 100%;
+}
+
+.tags {
+    margin: 15px 0;
+}
+
+.editor {
+    margin: 30px 0;
+    :global {
+        .cm-s-easymde {
+            bottom: 0;
+            font-size: 22px;
+        }
+        .editor-toolbar {
+            border: 0;
+            background-color: rgba(0, 0 , 0, .02);
+        }
+    }
+}
+
+.buttons {
+    display: flex;
+    button {
+        margin-right: 15px;
+    }
+}

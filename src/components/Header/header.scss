@@ -1,0 +1,12 @@
+.header {
+    padding: 15px 0;
+    background-color: #fff;
+    &-btns {
+        display: flex;
+        gap: 10px;
+    }
+    &-logo {
+        font-size: 30px;
+        font-weight: 600;
+    }
+}
