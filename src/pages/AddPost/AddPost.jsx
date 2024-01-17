@@ -8,7 +8,7 @@ import "easymde/dist/easymde.min.css";
 import { useCreatePostMutation, useUploadImageMutation, useGetPostDetailsQuery } from '../../services/postApi';
 
 import styles from './AddPost.module.scss';
-import axios from '../../axios';
+import axios from '../../axios.js';
 
 
 const AddPost = () => {
