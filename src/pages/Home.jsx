@@ -25,7 +25,7 @@ const Home = () => {
         if (postsList) {
             setPosts(postsList)
         }
-    }, [postsList, postsIsFetching]);
+    }, [postsQuery.data, postsQuery.isFetching]);
 
     useEffect(() => {
         if (tagsQuery) {

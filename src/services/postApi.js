@@ -23,7 +23,10 @@ export const postApi = createApi({
         uploadImage: builder.mutation({
             query: (image) => createRequest('/upload', 'POST', image),     
         }),
+        removePost: builder.mutation({
+            query: (id) => createRequest(`/posts/${id}`, 'DELETE', id)
+        })
     })
 });
 
-export const { useGetPostsQuery, useGetPostDetailsQuery, useCreatePostMutation, useUploadImageMutation } = postApi;
+export const { useGetPostsQuery, useGetPostDetailsQuery, useCreatePostMutation, useUploadImageMutation, useRemovePostMutation } = postApi;
