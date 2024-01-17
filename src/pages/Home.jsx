@@ -33,7 +33,10 @@ const Home = () => {
         }
     }, [tagsList, tagsIsFetching]);
 
-    console.log(userData?.data?._id)
+	const userId = localStorage.getItem('current_user_id');
+
+
+    // console.log(userData?.data?._id)
 
     return (
         <div className='home'>
@@ -63,8 +66,7 @@ const Home = () => {
                                         commentsCount={post?.commentsCount}
                                         tags={post?.tags}
                                         isEditable={userData?.data?._id === post?.user?._id}
-                                        />
-                                    
+                                    />
                                 )
                             ))
                         }

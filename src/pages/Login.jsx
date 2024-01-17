@@ -31,19 +31,18 @@ const Login = () => {
       email, password
     }
     const response = await login(userCredentials);
-    dispatch(setAuthState({ isLoggedIn: true, data: { ...response.data } }))
+    dispatch(setAuthState({ isLoggedIn: true, data: { ...response.data } }));
+
     
-    if (response.data.token) {
+    if (response.data.token ) {
       window.localStorage.setItem('token', response.data.token);
+      window.localStorage.setItem('current_user_id', response.data._id);
     } else {
       return alert('Login failed')
     }
 
     navigate('/')
   }
-
-  const isLoggedIn = false
-  // console.log(data)
   return (
     <div className='register'>
       <h2 className="register-title">Log in</h2>

@@ -8,12 +8,13 @@ import { logout } from '../../redux/slices/authSlice';
 const Header = () => {
   const dispatch = useDispatch();
   const isAuth = useSelector((state) => state.authSlice.isLoggedIn);
-  
+
   const onClickLogout = async () => {
     try {
       if (window.confirm('Are you sure you want to log out')) {
         dispatch(logout());
         window.localStorage.removeItem('token')
+        window.localStorage.removeItem('current_user_id');
       }
     } catch (err) {
       console.error('Error logging out', err)

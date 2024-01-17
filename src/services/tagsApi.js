@@ -5,7 +5,6 @@ const createRequest = url => ({ url })
 
 export const tagsApi = createApi({
     reducerPath: 'tagsApi',
-    // baseQuery: fetchBaseQuery({baseUrl: process.env.REACT_APP_API_URL}),
     baseQuery,
     endpoints: (builder) => ({
         getTags: builder.query({

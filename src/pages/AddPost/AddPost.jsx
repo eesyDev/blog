@@ -28,9 +28,6 @@ const AddPost = () => {
   // const { data } = useGetPostDetailsQuery(id);
   // console.log(isEditing);
 
-
-
-
   // const [createPost] = useCreatePostMutation();
   const [uploadImage] = useUploadImageMutation();
 
@@ -42,7 +39,6 @@ const AddPost = () => {
         tags,
         text
       }
-
       // const { data } = await createPost(fields);
       // const id = data._id;
 

@@ -16,7 +16,6 @@ const SinglePost = () => {
     setPostData(data)
   }, [data, isFetching])
 
-  console.log(postData)
   return (
     <div className='single-post'>
       <div className='container'>

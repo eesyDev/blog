@@ -9,19 +9,18 @@ import { getProfile } from './redux/slices/authSlice';
 
 function App() {
 	const dispatch = useDispatch();
-	const profile = useGetProfileQuery();
-	const { data } = profile;
+
 	const storedAuthData = localStorage.getItem('token');
-console.log(storedAuthData)
+	const userId = localStorage.getItem('current_user_id');
+	const profile = useGetProfileQuery(userId);
+	const { data } = profile;
 	useEffect(() => {
 		if (storedAuthData) {
-			dispatch(getProfile({ isLoggedIn: true, ...data}))
+			dispatch(getProfile({ isLoggedIn: true, data}))
 		}
-	}, []);
+	}, [data, profile]);
 
-	// useEffect(() => {
-	// 	dispatch(fetchAuthProfile());
-	// }, []);
+	console.log(data)
   return (
     <div className="App">
       	<Header/>

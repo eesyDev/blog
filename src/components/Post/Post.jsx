@@ -9,13 +9,13 @@ import noAvatarImg from '../../img/noimage.jpg'
 import PostSceleton from './Sceleton';
 
 const Post = ({
-  id, title, createdAt, imageUrl, userName,userImg, viewsCount, commentsCount, tags, isLoading, isEditable
+  id, title, createdAt, imageUrl, userName, userImg, viewsCount, commentsCount, tags, isLoading, isEditable
 }) => {
   if (isLoading) {
     return <PostSceleton/>
   }
 
-  console.log(isEditable)
+  // console.log(isEditable)
   return (
     <div className='post-item'>
       {
