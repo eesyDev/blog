@@ -5,7 +5,6 @@ import SimpleMde from 'react-simplemde-editor';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import "easymde/dist/easymde.min.css";
-import noAvatarImg from '../../img/noimage.jpg';
 import { useCreatePostMutation, useUploadImageMutation, useGetPostDetailsQuery } from '../../services/postApi';
 
 import styles from './AddPost.module.scss';
@@ -100,7 +99,7 @@ const AddPost = () => {
             imageUrl && (
               <>
                 <Button variant='contained' color="error" onClick={onClickRemoveImage}>Delete</Button>
-                <img className='' src={`http://localhost:4444${imageUrl}`}/>
+                <img className='' src={`${process.env.REACT_APP_API_URL}${imageUrl}`}/>
               </>
             )
           }    
