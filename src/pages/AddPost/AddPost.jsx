@@ -8,7 +8,7 @@ import "easymde/dist/easymde.min.css";
 import { useCreatePostMutation, useUploadImageMutation, useGetPostDetailsQuery } from '../../services/postApi';
 
 import styles from './AddPost.module.scss';
-import axios from '../../axios.js';
+import customAxios from '../../axios.js';
 
 
 const AddPost = () => {
@@ -41,7 +41,7 @@ const AddPost = () => {
       // const { data } = await createPost(fields);
       // const id = data._id;
 
-      const { data } = isEditing ? await axios.patch(`/posts/${id}`, fields) : await axios.post('/posts', fields);
+      const { data } = isEditing ? await customAxios.patch(`/posts/${id}`, fields) : await customAxios.post('/posts', fields);
 
       const _id = isEditing ? id : data._id;
       navigate(`/posts/${_id}`)
@@ -71,7 +71,7 @@ const AddPost = () => {
 
   useEffect(() => {
     if (id) {
-      axios
+      customAxios
         .get(`/posts/${id}`)
         .then(({ data }) => {
           setTitle(data.title);
