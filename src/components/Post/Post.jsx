@@ -14,6 +14,8 @@ const Post = ({
   if (isLoading) {
     return <PostSceleton/>
   }
+
+  console.log(isEditable)
   return (
     <div className='post-item'>
       {
@@ -38,8 +40,8 @@ const Post = ({
             <Link to={`/posts/${id}`}>{title}</Link>
           </h2>
           <ul className='post-item-tags'>
-            {tags?.map((tag) => (
-            <li><Link to='#'>#{tag}</Link></li>
+            {tags?.map((tag, index) => (
+            <li key={tag + index}><Link to='#'>#{tag}</Link></li>
             ))}
           </ul>
           <ul className='post-item-actions'>

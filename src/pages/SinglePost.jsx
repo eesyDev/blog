@@ -22,13 +22,16 @@ const SinglePost = () => {
       <div className='container'>
         <div className='single-post-wrap'>
           <Post
-            id={1}
+            id={postData?._id}
             title={postData?.title}
             commentsCount={postData?.commentsCount || 0}
             createdAt={postData?.createdAt}
             tags={postData?.tags}
             // user={{avatarUrl: {noAvatarImg}, fullName: 'Jon Snow'}}
-            user={postData?.user?.fullName}
+            userName={postData?.user?.fullName}
+            userImg={postData?.user?.imageUrl}
+            imageUrl={`http://localhost:4444${postData?.imageUrl}`}
+            viewsCount={postData?.viewsCount || 0}
 
           />
           <div className="text-block">

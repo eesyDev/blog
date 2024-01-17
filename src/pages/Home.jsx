@@ -33,6 +33,7 @@ const Home = () => {
         }
     }, [tagsList, tagsIsFetching]);
 
+    console.log(userData?.data?._id)
 
     return (
         <div className='home'>
@@ -61,7 +62,7 @@ const Home = () => {
                                         viewsCount={post?.viewsCount}
                                         commentsCount={post?.commentsCount}
                                         tags={post?.tags}
-                                        isEditable={userData?.data.id === post?.user?._id}
+                                        isEditable={userData?.data?._id === post?.user?._id}
                                         />
                                     
                                 )

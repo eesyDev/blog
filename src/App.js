@@ -11,15 +11,17 @@ function App() {
 	const dispatch = useDispatch();
 	const profile = useGetProfileQuery();
 	const { data } = profile;
-
+	const storedAuthData = localStorage.getItem('token');
+console.log(storedAuthData)
 	useEffect(() => {
-		const storedAuthData = localStorage.getItem('token');
 		if (storedAuthData) {
-			dispatch(getProfile({ isLoggedIn: true, data: {...data} }))
+			dispatch(getProfile({ isLoggedIn: true, ...data}))
 		}
-	}, [])
+	}, []);
 
-
+	// useEffect(() => {
+	// 	dispatch(fetchAuthProfile());
+	// }, []);
   return (
     <div className="App">
       	<Header/>

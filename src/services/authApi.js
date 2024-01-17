@@ -14,18 +14,15 @@ export const authApi = createApi({
     endpoints: (builder) => ({
         login: builder.mutation({
             query: (user) => createRequest('/auth/login', 'POST', user),
-            onSuccess: async (data, {dispatch}) => {
-                dispatch(setAuthState({isLoggedIn: true, data: {...data.user}}));
-            }      
+            // onSuccess: async (data, {dispatch}) => {
+            //     dispatch(setAuthState({isLoggedIn: true, data: {...data.user}}));
+            // }      
         }),
         registerUser: builder.mutation({
             query: (user) => createRequest('/auth/register', 'POST', user),     
         }),
         getProfile: builder.query({
-            query: () => createRequest('/auth/profile', 'GET'),
-            onSuccess: async (data, {dispatch}) => {
-                dispatch(getProfile({isLoggedIn: true, data: {...data.user}}));
-            }      
+            query: () => createRequest('/auth/profile', 'GET'),      
         }),
     })
 });

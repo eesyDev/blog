@@ -1,14 +1,15 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { TextField } from '@mui/material';
 import { Button } from '@mui/material';
 import SimpleMde from 'react-simplemde-editor';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import "easymde/dist/easymde.min.css";
 import noAvatarImg from '../../img/noimage.jpg';
-import { useCreatePostMutation, useUploadImageMutation } from '../../services/postApi';
-
+import { useCreatePostMutation, useUploadImageMutation, useGetPostDetailsQuery } from '../../services/postApi';
 
 import styles from './AddPost.module.scss';
+import axios from '../../axios';
 
 
 const AddPost = () => {
@@ -17,12 +18,20 @@ const AddPost = () => {
   const [ tags, setTags ] = useState('');
   const [ text, setText ] = useState('');
   const [imageUrl, setImageUrl ] = useState('');
-
+  const { id } = useParams();
   const inputRef = useRef(null);
-
+  const isAuth = useSelector((state) => state.authSlice.isLoggedIn);
   const navigate = useNavigate();
 
-  const [createPost, {data, error}] = useCreatePostMutation();
+  const isEditing = Boolean(id);
+
+  // const { data } = useGetPostDetailsQuery(id);
+  // console.log(isEditing);
+
+
+
+
+  // const [createPost] = useCreatePostMutation();
   const [uploadImage] = useUploadImageMutation();
 
   const onSubmit = async () => {
@@ -30,19 +39,20 @@ const AddPost = () => {
       const fields = {
         title,
         imageUrl,
-        tags: tags.split(','),
+        tags,
         text
       }
 
-      const { data } = await createPost(fields);
-      const id = data._id;
+      // const { data } = await createPost(fields);
+      // const id = data._id;
 
-      console.log(fields)
+      const { data } = isEditing ? await axios.patch(`/posts/${id}`, fields) : await axios.post('/posts', fields);
 
-      navigate(`/posts/${id}`)
+      const _id = isEditing ? id : data._id;
+      navigate(`/posts/${_id}`)
 
     } catch (err) {
-      console.warn(error)
+      console.warn(err)
     }
   }
 
@@ -60,10 +70,30 @@ const AddPost = () => {
 
     setImageUrl(data.url)
   }
-    console.log(imageUrl);
   const onChange = useCallback((value) => {
     setText(value)
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    if (id) {
+      axios
+        .get(`/posts/${id}`)
+        .then(({ data }) => {
+          setTitle(data.title);
+          setText(data.text);
+          setImageUrl(data.imageUrl);
+          setTags(data.tags.join(','));
+        })
+        .catch((err) => {
+          console.warn(err);
+          alert('Ошибка при получении статьи!');
+        });
+    }
+  }, []);
+
+  if (!window.localStorage.getItem('token') && !isAuth) {
+    navigate('/')
+  }
   return (
     <div className='post-editor'>
       <div className="container">
@@ -82,9 +112,9 @@ const AddPost = () => {
         </div>
         <br/>
         <br/>
-        <TextField onChange={(e) => setTitle(e.target.value)} variant='standard' placeholder='Post title' fullWidth classes={{root: styles.title}}/>
-        <TextField onChange={(e) => setTags(e.target.value)} variant='standard' placeholder='Tags' fullWidth classes={{root: styles.tags}}/>
-        <SimpleMde className={styles.editor} onChange={onChange}/>
+        <TextField  value={title || ''} onChange={(e) => setTitle(e.target.value)} variant='standard' placeholder='Post title' fullWidth classes={{root: styles.title}}/>
+        <TextField value={tags || ''} onChange={(e) => setTags(e.target.value)} variant='standard' placeholder='Tags' fullWidth classes={{root: styles.tags}}/>
+        <SimpleMde className={styles.editor} onChange={onChange} value={text || ''}/>
         <div className={styles.buttons}>
           <Button size='large' variant='contained' color='primary' onClick={onSubmit}>Add post</Button>
           <Button size='large' variant='outlined' color='primary'>Cancel</Button>
